@@ -176,3 +176,4 @@ Todas as rotas aceitam e produzem _application/json_ .
 | _NOT_FOUND_ | A busca não encontrou o item requisitado |
 | _FORBIDDEN_ | O item não pode ser deletado |
 | _INTERNAL_SERVER_ERROR_ | Erro no processamento da requisição pelo server |
+
