@@ -113,7 +113,7 @@ public class PaymentControllerTests {
         Map<String, Status> request = new HashMap<>();
         request.put("status", updatedPayment.getStatus());
 
-        mockMvc.perform(put("/api/payments/status/{id}", id).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(patch("/api/payments/status/{id}", id).contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.payment.status").value(updatedPayment.getStatus().toString()))
@@ -131,7 +131,7 @@ public class PaymentControllerTests {
         Map<String, Status> request = new HashMap<>();
         request.put("status", Status.PAID);
 
-        mockMvc.perform(put("/api/payments/status/{id}", id).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(patch("/api/payments/status/{id}", id).contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden());
     }
@@ -149,7 +149,7 @@ public class PaymentControllerTests {
         Map<String, LocalDateTime> request = new HashMap<>();
         request.put("scheduledTo", updatedPayment.getScheduledTo());
 
-        mockMvc.perform(put("/api/payments/schedule/{id}", id).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(patch("/api/payments/schedule/{id}", id).contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.payment.scheduledTo").value(updatedPayment.getScheduledTo().toString()))
@@ -167,7 +167,7 @@ public class PaymentControllerTests {
         Map<String, LocalDateTime> request = new HashMap<>();
         request.put("scheduledTo", LocalDateTime.of(2025, Month.JANUARY, 31, 02, 06, 50));
 
-        mockMvc.perform(put("/api/payments/schedule/{id}", id).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(patch("/api/payments/schedule/{id}", id).contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden());
     }

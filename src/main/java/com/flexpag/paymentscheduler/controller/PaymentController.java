@@ -70,7 +70,7 @@ public class PaymentController {
         }
     }
 
-    @PutMapping(path = "/payments/status/{id}")
+    @PatchMapping(path = "/payments/status/{id}")
     public ResponseEntity<APIResponse> updatePaymentStatus(@PathVariable("id") long id, @RequestBody Map<String, Status> payload){
         try{
             Optional<Payment> paymentData = paymentRepository.findById(id);
@@ -92,7 +92,7 @@ public class PaymentController {
         }
     }
 
-    @PutMapping(path = "/payments/schedule/{id}")
+    @PatchMapping(path = "/payments/schedule/{id}")
     public ResponseEntity<APIResponse> updatePaymentSchedule(@PathVariable("id") long id, @RequestBody Map<String, LocalDateTime> payload){
         try{
             Optional<Payment> paymentData = paymentRepository.findById(id);
