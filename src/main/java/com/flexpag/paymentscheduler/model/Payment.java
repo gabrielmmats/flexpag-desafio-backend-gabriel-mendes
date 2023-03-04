@@ -21,6 +21,9 @@ public class Payment {
     @Getter @Setter private Status status;
 
     public Payment(LocalDateTime scheduledTo, float amount){
+        if(amount < 0){
+            throw new IllegalArgumentException("Amount should be positive");
+        }
         this.scheduledTo = scheduledTo;
         this.amount = amount;
         this.status = Status.PENDING;
