@@ -38,11 +38,12 @@ public class PaymentControllerTests {
 
     @Test
     void shouldCreatePayment() throws Exception {
-        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00));
+        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         when(paymentRepository.save(any(Payment.class))).thenReturn(payment);
 
-        Map<String, LocalDateTime> request = new HashMap<>();
+        Map<String, Object> request = new HashMap<>();
         request.put("scheduledTo", payment.getScheduledTo());
+        request.put("amount", payment.getAmount());
 
         mockMvc.perform(post("/api/payments")
                         .accept(MediaType.APPLICATION_JSON)
@@ -55,9 +56,9 @@ public class PaymentControllerTests {
     @Test
     void shouldReturnListOfPayments() throws Exception {
         List<Payment> payments = new ArrayList<>(
-                Arrays.asList(new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00)),
-                        new Payment(LocalDateTime.of(2013, Month.MARCH, 15, 05, 20, 04)),
-                        new Payment(LocalDateTime.of(2077, Month.DECEMBER, 31, 04, 25, 50))));
+                Arrays.asList(new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000),
+                        new Payment(LocalDateTime.of(2013, Month.MARCH, 15, 05, 20, 04), 50.20f),
+                        new Payment(LocalDateTime.of(2077, Month.DECEMBER, 31, 04, 25, 50), 0.5f)));
 
         when(paymentRepository.findAll()).thenReturn(payments);
         mockMvc.perform(get("/api/payments"))
@@ -69,8 +70,8 @@ public class PaymentControllerTests {
     void shouldReturnListOfPaymentsWithFilter() throws Exception {
         Status queryStatus = Status.PENDING;
         List<Payment> payments = new ArrayList<>(
-                Arrays.asList(new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00)),
-                        new Payment(LocalDateTime.of(2077, Month.DECEMBER, 31, 04, 25, 50))));
+                Arrays.asList(new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000),
+                        new Payment(LocalDateTime.of(2077, Month.DECEMBER, 31, 04, 25, 50), 2000)));
 
         when(paymentRepository.findByStatus(queryStatus)).thenReturn(payments);
         mockMvc.perform(get("/api/payments?status=" + queryStatus))
@@ -80,7 +81,7 @@ public class PaymentControllerTests {
 
     @Test
     void shouldReturnPaymentStatus() throws Exception {
-        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00));
+        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         payment.setStatus(Status.PAID);
         long id = payment.getId();
         Status status = payment.getStatus();
@@ -101,9 +102,9 @@ public class PaymentControllerTests {
 
     @Test
     void shouldUpdatePaymentStatus() throws Exception {
-        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00));
+        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         Long id = payment.getId();
-        Payment updatedPayment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00));
+        Payment updatedPayment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         updatedPayment.setStatus(Status.PAID);
 
 
@@ -122,7 +123,7 @@ public class PaymentControllerTests {
 
     @Test
     void shouldNotUpdatePaymentStatus() throws Exception {
-        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00));
+        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         Long id = payment.getId();
         payment.setStatus(Status.PAID);
 
@@ -138,9 +139,9 @@ public class PaymentControllerTests {
 
     @Test
     void shouldUpdatePaymentSchedule() throws Exception {
-        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00));
+        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         Long id = payment.getId();
-        Payment updatedPayment = new Payment(LocalDateTime.of(2025, Month.JANUARY, 31, 02, 06, 50));
+        Payment updatedPayment = new Payment(LocalDateTime.of(2025, Month.JANUARY, 31, 02, 06, 50), 6000);
 
 
         when(paymentRepository.findById(id)).thenReturn(Optional.of(payment));
@@ -158,7 +159,7 @@ public class PaymentControllerTests {
 
     @Test
     void shouldNotUpdatePaymentSchedule() throws Exception {
-        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00));
+        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         Long id = payment.getId();
         payment.setStatus(Status.PAID);
 
@@ -174,7 +175,7 @@ public class PaymentControllerTests {
 
     @Test
     void shouldDeletePayment() throws Exception {
-        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00));
+        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         Long id = payment.getId();
 
         when(paymentRepository.findById(id)).thenReturn(Optional.of(payment));
@@ -186,7 +187,7 @@ public class PaymentControllerTests {
 
     @Test
     void shouldNotDeletePayment() throws Exception {
-        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00));
+        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         payment.setStatus(Status.PAID);
         Long id = payment.getId();
 

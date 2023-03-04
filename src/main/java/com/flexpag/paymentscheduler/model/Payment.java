@@ -15,17 +15,20 @@ public class Payment {
     @Getter private long id;
 
     @Getter @Setter private LocalDateTime scheduledTo;
+
+    @Getter @Setter private float amount;
     @Enumerated(EnumType.STRING)
     @Getter @Setter private Status status;
 
-    public Payment(LocalDateTime scheduledTo){
+    public Payment(LocalDateTime scheduledTo, float amount){
         this.scheduledTo = scheduledTo;
+        this.amount = amount;
         this.status = Status.PENDING;
     }
 
     @Override
     public String toString() {
-        return "Payment [id=" + id + ", scheduledTo=" + scheduledTo + ", status=" + status + "]";
+        return "Payment [id=" + id + ", scheduledTo=" + scheduledTo + ", amount=" + amount + ", status=" + status + "]";
     }
 
 

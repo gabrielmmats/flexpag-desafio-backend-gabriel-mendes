@@ -59,10 +59,10 @@ public class PaymentController {
     }
 
     @PostMapping(path = "/payments")
-    public ResponseEntity<APIResponse> createPayment(@RequestBody Map<String, LocalDateTime> payload){
+    public ResponseEntity<APIResponse> createPayment(@RequestBody Payment payment){
         try {
             Payment _payment = paymentRepository
-                    .save(new Payment(payload.get("scheduledTo")));
+                    .save(new Payment(payment.getScheduledTo(), payment.getAmount()));
             return new ResponseEntity<>(new APIResponse("id", _payment.getId()), HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.println(e.toString());
