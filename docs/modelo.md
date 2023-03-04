@@ -4,6 +4,7 @@
 
 | Campo | Tipo |
 | ------ | ------ |
-| _id_ | BIGINT |
+| _ID_ | BIGINT |
 | _SCHEDULED_TO_ | TIMESTAMP |
 | _STATUS_ | CHARACTER VARYING(255) |
+| _AMOUNT_ | FLOAT |
