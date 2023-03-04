@@ -12,7 +12,7 @@ import com.flexpag.paymentscheduler.utils.Status;
 @NoArgsConstructor
 public class Payment {
     @Id @GeneratedValue
-    @Getter long id;
+    @Getter private long id;
 
     @Getter @Setter private LocalDateTime scheduledTo;
     @Enumerated(EnumType.STRING)
