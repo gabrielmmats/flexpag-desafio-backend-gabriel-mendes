@@ -1,6 +1,6 @@
-# Endpoints
+# API
 
-Todos os endpoints aceitam e produzem _application/json_ .
+Todas as rotas aceitam e produzem _application/json_ .
 
 ### `GET /api/payments/`
 * Retorna todos os agendamentos. Use o parâmetro opcional de busca _status_ para filtrar por status. 
