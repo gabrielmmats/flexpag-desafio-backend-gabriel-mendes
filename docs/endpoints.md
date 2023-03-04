@@ -16,12 +16,14 @@ Todos os endpoints aceitam e produzem _application/json_ .
         "payments": [
             {
                 "id": 1,
-                "scheduledTo": "2065-04-02T03:01:40.212",
+                "scheduledTo": "2013-08-30T13:14:20",
+                "amount": 520.5,
                 "status": "PENDING"
             },
             {
                 "id": 2,
-                "scheduledTo": "2022-04-02T03:01:40.212",
+                "scheduledTo": "2022-10-13T21:54:33",
+                "amount": 5490.55,
                 "status": "PENDING"
             }
         ]
@@ -63,19 +65,21 @@ Todos os endpoints aceitam e produzem _application/json_ .
 * Cria um agendamento com o horário especificado. Retorna o _id_ do agendamento criado.
 * Parâmetros de corpo:
     - _scheduledTo_ `TIMESTAMP`
+    - _amount_ `FLOAT`
 * Exemplo:
     - Request URL: `localhost:8080/api/payments/status/1`
     - Request Body:
 ```JSON
 {
-    "scheduledTo": "2023-08-30T13:14:20.000"
+    "scheduledTo": "2022-10-13T21:54:33.000", 
+    "amount": 5490.55
 }
 ```
     - Response:
 ```JSON
 {
     "data": {
-        "id": 3
+        "id": 2
     }
 }
 ```
@@ -106,7 +110,8 @@ Todos os endpoints aceitam e produzem _application/json_ .
     "data": {
         "payment": {
             "id": 1,
-            "scheduledTo": "2065-04-02T03:01:40.212",
+            "scheduledTo": "2013-08-30T13:14:20",
+            "amount": 5000.0,
             "status": "PAID"
         }
     }
@@ -128,11 +133,11 @@ Todos os endpoints aceitam e produzem _application/json_ .
 * Parâmetros de corpo:
     - _scheduledTo_ `TIMESTAMP`
 * Exemplo:
-    - Request URL: `localhost:8080/api/payments/schedule/1`
+    - Request URL: `localhost:8080/api/payments/schedule/2`
     - Request Body:
 ```JSON
 {
-    "scheduledTo" : "2023-04-02T10:54:33.212"
+    "scheduledTo" : "2023-11-02T10:54:33.212"
 }
 ```
     - Response:
@@ -140,8 +145,9 @@ Todos os endpoints aceitam e produzem _application/json_ .
 {
     "data": {
         "payment": {
-            "id": 1,
-            "scheduledTo": "2023-04-02T10:54:33.212",
+            "id": 2,
+            "scheduledTo": "2023-11-02T10:54:33.212",
+            "amount": 520.5,
             "status": "PENDING"
         }
     }
