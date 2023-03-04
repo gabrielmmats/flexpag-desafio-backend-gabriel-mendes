@@ -8,8 +8,8 @@ Todas os endpoints aceitam e produzem _application/json_ .
     - _status_ `PENDING | PAID` (opcional)
  
 * Exemplo:
-Request URL: `localhost:8080/api/payments?status=PENDING`
-Response:
+    - Request URL: `localhost:8080/api/payments?status=PENDING`
+    - Response:
 ```JSON
 {
     "data": {
@@ -42,8 +42,8 @@ Response:
 * Parâmetros de caminho:
     - _id_ `LONG`
 * Exemplo:
-Request URL: `localhost:8080/api/payments/status/1`
-Response:
+    - Request URL: `localhost:8080/api/payments/status/1`
+    - Response:
 ```JSON
 {
     "data": {
@@ -64,14 +64,14 @@ Response:
 * Parâmetros de corpo:
     - _scheduledTo_ `TIMESTAMP`
 * Exemplo:
-Request URL: `localhost:8080/api/payments/status/1`
-Request Body:
+    - Request URL: `localhost:8080/api/payments/status/1`
+    - Request Body:
 ```JSON
 {
     "scheduledTo": "2023-08-30T13:14:20.000"
 }
 ```
-Response:
+    - Response:
 ```JSON
 {
     "data": {
@@ -93,14 +93,14 @@ Response:
 * Parâmetros de corpo:
     - _status_ `PENDING | PAID`
 * Exemplo:
-Request URL: `localhost:8080/api/payments/status/1`
-Request Body:
+    - Request URL: `localhost:8080/api/payments/status/1`
+    - Request Body:
 ```JSON
 {
     "status" : "PAID"
 }
 ```
-Response:
+    - Response:
 ```JSON
 {
     "data": {
@@ -128,14 +128,14 @@ Response:
 * Parâmetros de corpo:
     - _scheduledTo_ `TIMESTAMP`
 * Exemplo:
-Request URL: `localhost:8080/api/payments/schedule/1`
-Request Body:
+    - Request URL: `localhost:8080/api/payments/schedule/1`
+    - Request Body:
 ```JSON
 {
     "scheduledTo" : "2023-04-02T10:54:33.212"
 }
 ```
-Response:
+    - Response:
 ```JSON
 {
     "data": {
@@ -161,7 +161,7 @@ Response:
 * Parâmetros de caminho:
     - _id_ `LONG`
 * Exemplo:
-Request URL: localhost:8080/api/payments/1
+    - Request URL: localhost:8080/api/payments/1
 * Possíveis HTTP Status de resposta:
 
 | HTTP Status | Ocorrido |
