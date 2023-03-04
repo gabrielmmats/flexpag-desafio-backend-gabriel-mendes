@@ -157,11 +157,11 @@ Todos os endpoints aceitam e produzem _application/json_ .
 | _INTERNAL_SERVER_ERROR_ | Erro no processamento da requisição pelo server |
 
 ### `DELETE /api/payments/{id}`
-* Delete um agendamento existente identificado pelo parâmetro de caminho _id_. Não é possível deletar agendamentos já pagos.
+* Deleta um agendamento existente identificado pelo parâmetro de caminho _id_. Não é possível deletar agendamentos já pagos.
 * Parâmetros de caminho:
     - _id_ `LONG`
 * Exemplo:
-    - Request URL: localhost:8080/api/payments/1
+    - Request URL: `localhost:8080/api/payments/1`
 * Possíveis HTTP Status de resposta:
 
 | HTTP Status | Ocorrido |
