@@ -126,7 +126,7 @@ Todas as rotas aceitam e produzem _application/json_ .
 | _FORBIDDEN_ | O item não pode ser alterado |
 | _INTERNAL_SERVER_ERROR_ | Erro no processamento da requisição pelo server |
 
-### `PUT /api/payments/{id}`
+### `PATCH /api/payments/{id}`
 * Modifica horário e valor de um agendamento existente identificado pelo parâmetro de caminho _id_. Novos valores devem vir como parâmetros de corpo. Não é possível alterar agendamentos já pagos. Retorna o item alterado.
 * Parâmetros de caminho:
     - _id_ `LONG`
