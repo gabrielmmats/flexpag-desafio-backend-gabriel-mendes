@@ -43,12 +43,12 @@ public class PaymentController {
         }
     }
 
-    @GetMapping(path = "/payments/status/{id}", consumes = "*/*")
-    public ResponseEntity<APIResponse> getPaymentStatus(@PathVariable("id") long id){
+    @GetMapping(path = "/payments/{id}", consumes = "*/*")
+    public ResponseEntity<APIResponse> getPayment(@PathVariable("id") long id){
         try{
             Optional<Payment> paymentData = paymentRepository.findById(id);
             if (paymentData.isPresent()){
-                return new ResponseEntity<>(new APIResponse("status", paymentData.get().getStatus()), HttpStatus.OK);
+                return new ResponseEntity<>(new APIResponse("payment", paymentData.get()), HttpStatus.OK);
             }
             else{
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

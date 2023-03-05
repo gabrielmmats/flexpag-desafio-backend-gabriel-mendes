@@ -80,15 +80,18 @@ public class PaymentControllerTests {
     }
 
     @Test
-    void shouldReturnPaymentStatus() throws Exception {
-        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
+    void shouldReturnPayment() throws Exception {
+        Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 23), 6000);
         payment.setStatus(Status.PAID);
         long id = payment.getId();
         Status status = payment.getStatus();
 
         when(paymentRepository.findById(id)).thenReturn(Optional.of(payment));
-        mockMvc.perform(get("/api/payments/status/{id}", id)).andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.status").value(status.toString()));
+        mockMvc.perform(get("/api/payments/{id}", id)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.payment.status").value(status.toString()))
+                .andExpect(jsonPath("$.data.payment.scheduledTo").value(payment.getScheduledTo().toString()))
+                .andExpect(jsonPath("$.data.payment.amount").value(payment.getAmount()))
+                .andExpect(jsonPath("$.data.payment.id").value(payment.getId()));
     }
 
     @Test
@@ -96,7 +99,7 @@ public class PaymentControllerTests {
         long id = 1L;
 
         when(paymentRepository.findById(id)).thenReturn(Optional.empty());
-        mockMvc.perform(get("/api/payments/status/{id}", id))
+        mockMvc.perform(get("/api/payments/{id}", id))
                 .andExpect(status().isNotFound());
     }
 
