@@ -138,37 +138,40 @@ public class PaymentControllerTests {
     }
 
     @Test
-    void shouldUpdatePaymentSchedule() throws Exception {
+    void shouldUpdatePayment() throws Exception {
         Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         Long id = payment.getId();
-        Payment updatedPayment = new Payment(LocalDateTime.of(2025, Month.JANUARY, 31, 02, 06, 50), 6000);
+        Payment updatedPayment = new Payment(LocalDateTime.of(2025, Month.JANUARY, 31, 02, 06, 50), 4000);
 
 
         when(paymentRepository.findById(id)).thenReturn(Optional.of(payment));
         when(paymentRepository.save(any(Payment.class))).thenReturn(updatedPayment);
 
-        Map<String, LocalDateTime> request = new HashMap<>();
-        request.put("scheduledTo", updatedPayment.getScheduledTo());
+        Map<String, Object> request = new HashMap<>();
+        request.put("scheduledTo", payment.getScheduledTo());
+        request.put("amount", payment.getAmount());
 
-        mockMvc.perform(patch("/api/payments/schedule/{id}", id).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put("/api/payments/{id}", id).contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.payment.scheduledTo").value(updatedPayment.getScheduledTo().toString()))
+                .andExpect(jsonPath("$.data.payment.amount").value(updatedPayment.getAmount()))
                 .andExpect(jsonPath("$.data.payment.id").value(updatedPayment.getId()));
     }
 
     @Test
-    void shouldNotUpdatePaymentSchedule() throws Exception {
+    void shouldNotUpdatePayment() throws Exception {
         Payment payment = new Payment(LocalDateTime.of(2022, Month.APRIL, 25, 22, 59, 00), 6000);
         Long id = payment.getId();
         payment.setStatus(Status.PAID);
 
         when(paymentRepository.findById(id)).thenReturn(Optional.of(payment));
 
-        Map<String, LocalDateTime> request = new HashMap<>();
-        request.put("scheduledTo", LocalDateTime.of(2025, Month.JANUARY, 31, 02, 06, 50));
+        Map<String, Object> request = new HashMap<>();
+        request.put("scheduledTo", payment.getScheduledTo());
+        request.put("amount", payment.getAmount());
 
-        mockMvc.perform(patch("/api/payments/schedule/{id}", id).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put("/api/payments/{id}", id).contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden());
     }

@@ -92,14 +92,15 @@ public class PaymentController {
         }
     }
 
-    @PatchMapping(path = "/payments/schedule/{id}")
-    public ResponseEntity<APIResponse> updatePaymentSchedule(@PathVariable("id") long id, @RequestBody Map<String, LocalDateTime> payload){
+    @PutMapping(path = "/payments/{id}")
+    public ResponseEntity<APIResponse> updatePaymentSchedule(@PathVariable("id") long id, @RequestBody Payment payment){
         try{
             Optional<Payment> paymentData = paymentRepository.findById(id);
             if (paymentData.isPresent()){
                 Payment _payment = paymentData.get();
                 if (_payment.getStatus() == Status.PENDING){
-                    _payment.setScheduledTo(payload.get("scheduledTo"));
+                    _payment.setScheduledTo(payment.getScheduledTo());
+                    _payment.setAmount(payment.getAmount());
                     return new ResponseEntity<>(new APIResponse("payment", paymentRepository.save(_payment)), HttpStatus.OK);
                 }
                 else{
