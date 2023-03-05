@@ -151,7 +151,7 @@ public class PaymentControllerTests {
         request.put("scheduledTo", payment.getScheduledTo());
         request.put("amount", payment.getAmount());
 
-        mockMvc.perform(put("/api/payments/{id}", id).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(patch("/api/payments/{id}", id).contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.payment.scheduledTo").value(updatedPayment.getScheduledTo().toString()))
@@ -171,7 +171,7 @@ public class PaymentControllerTests {
         request.put("scheduledTo", payment.getScheduledTo());
         request.put("amount", payment.getAmount());
 
-        mockMvc.perform(put("/api/payments/{id}", id).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(patch("/api/payments/{id}", id).contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden());
     }

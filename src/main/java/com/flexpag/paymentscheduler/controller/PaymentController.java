@@ -92,7 +92,7 @@ public class PaymentController {
         }
     }
 
-    @PutMapping(path = "/payments/{id}")
+    @PatchMapping(path = "/payments/{id}")
     public ResponseEntity<APIResponse> updatePaymentSchedule(@PathVariable("id") long id, @RequestBody Payment payment){
         try{
             Optional<Payment> paymentData = paymentRepository.findById(id);
