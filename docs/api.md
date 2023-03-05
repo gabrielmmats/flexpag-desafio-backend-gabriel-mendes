@@ -67,7 +67,7 @@ Todas as rotas aceitam e produzem _application/json_ .
     - _scheduledTo_ `TIMESTAMP`
     - _amount_ `FLOAT`
 * Exemplo:
-    - Request URL: `localhost:8080/api/payments/status/1`
+    - Request URL: `localhost:8080/api/payments`
     - Request Body:
 ```JSON
 {
