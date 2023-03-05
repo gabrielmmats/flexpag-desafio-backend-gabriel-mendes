@@ -67,7 +67,7 @@ Todas as rotas aceitam e produzem _application/json_ .
 | _INTERNAL_SERVER_ERROR_ | Erro no processamento da requisição pelo server |
 
 ### `POST /api/payments/`
-* Cria um agendamento com o horário especificado. Retorna o _id_ do agendamento criado.
+* Cria um agendamento com horário e quantia especificados. Retorna o _id_ do agendamento criado.
 * Parâmetros de corpo:
     - _scheduledTo_ `TIMESTAMP`
     - _amount_ `FLOAT`
