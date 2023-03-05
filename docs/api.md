@@ -39,17 +39,22 @@ Todas as rotas aceitam e produzem _application/json_ .
 | _NO_CONTENT_ | A busca foi bem sucedida mas não retornou resultados |
 | _INTERNAL_SERVER_ERROR_ | Erro no processamento da requisição pelo server |
 
-### `GET /api/payments/status/{id}`
-* Retorna o status do agendamento identificado pelo parâmetro de caminho _id_.
+### `GET /api/payments/{id}`
+* Retorna o agendamento identificado pelo parâmetro de caminho _id_.
 * Parâmetros de caminho:
     - _id_ `LONG`
 * Exemplo:
-    - Request URL: `localhost:8080/api/payments/status/1`
+    - Request URL: `localhost:8080/api/payments/1`
     - Response:
 ```JSON
 {
     "data": {
-        "status": "PENDING"
+        "payment": {
+            "id": 1,
+            "scheduledTo": "2023-10-13T21:54:54",
+            "amount": 2350.55,
+            "status": "PENDING"
+        }
     }
 }
 ```
