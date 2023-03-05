@@ -126,18 +126,20 @@ Todas as rotas aceitam e produzem _application/json_ .
 | _FORBIDDEN_ | O item não pode ser alterado |
 | _INTERNAL_SERVER_ERROR_ | Erro no processamento da requisição pelo server |
 
-### `PATCH /api/payments/schedule/{id}`
-* Modifica o horário de um agendamento existente identificado pelo parâmetro de caminho _id_. Novo valor deve vir no parâmetro de corpo _scheduledTo_. Não é possível alterar agendamentos já pagos. Retorna o item alterado.
+### `PUT /api/payments/{id}`
+* Modifica horário e valor de um agendamento existente identificado pelo parâmetro de caminho _id_. Novos valores devem vir como parâmetros de corpo. Não é possível alterar agendamentos já pagos. Retorna o item alterado.
 * Parâmetros de caminho:
     - _id_ `LONG`
 * Parâmetros de corpo:
     - _scheduledTo_ `TIMESTAMP`
+    - _amount_ `FLOAT`
 * Exemplo:
-    - Request URL: `localhost:8080/api/payments/schedule/2`
+    - Request URL: `localhost:8080/api/payments/2`
     - Request Body:
 ```JSON
 {
-    "scheduledTo" : "2023-11-02T10:54:33.212"
+    "scheduledTo" : "2024-11-02T13:21:35.238",
+    "amount": 320.55
 }
 ```
     - Response:
@@ -146,8 +148,8 @@ Todas as rotas aceitam e produzem _application/json_ .
     "data": {
         "payment": {
             "id": 2,
-            "scheduledTo": "2023-11-02T10:54:33.212",
-            "amount": 520.5,
+            "scheduledTo": "2024-11-02T13:21:35.238",
+            "amount": 320.55,
             "status": "PENDING"
         }
     }
